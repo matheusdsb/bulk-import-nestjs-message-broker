@@ -1,0 +1,53 @@
+version: "3"
+services: 
+  mongo:
+    container_name: import-users-mongo
+    image: mongo:6
+    restart: always
+    volumes: 
+      - ./mongo-data:/data/db
+    ports: 
+      - "27017:27017"
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    environment:
+        - RABBITMQ_DEFAULT_USER=myuser
+        - RABBITMQ_DEFAULT_PASS=mypassword        
+    # volumes:
+    #     - ./rabbitmq/data/:/var/lib/rabbitmq/
+    #     - ./rabbitmq/log/:/var/log/rabbitmq
+    # networks:
+    #     - rabbitmq_go_net
+
+  import_service:
+    container_name: import-service
+    image: node:16
+    working_dir: /usr/src/import-service
+    restart: always
+    command: bash -c "npm install --omit=dev && npm run start:prod"
+    environment: 
+      - GITHUB_USERS_API=https://api.github.com/users
+      - MONGODB_ENDPOINT=mongodb://mongo:27017/github-users
+      - MESSAGE_BROKER_URL=amqp://myuser:mypassword@rabbitmq:5672
+      - QUEUE_NAME=import-users-queue
+      - MESSAGE_BROKER_NAME=import-users-service
+      - PORT=4000      
+    volumes: 
+      - ./dist/:/usr/src/import-service/dist/
+      - ./package.json:/usr/src/import-service/package.json
+    ports: 
+      - "4000:4000"
+    links:
+      - mongo
+      - rabbitmq
+    depends_on:
+      - mongo
+      - rabbitmq       
+
+# networks:
+#   rabbitmq_go_net:
+#     driver: bridge                         
