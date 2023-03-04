@@ -9,7 +9,7 @@ services:
     ports: 
       - "27017:27017"
   rabbitmq:
-    image: rabbitmq:3-management-alpine
+    image: rabbitmq:3.9-management-alpine
     container_name: 'rabbitmq'
     ports:
         - 5672:5672
@@ -17,9 +17,9 @@ services:
     environment:
         - RABBITMQ_DEFAULT_USER=myuser
         - RABBITMQ_DEFAULT_PASS=mypassword        
-    # volumes:
-    #     - ./rabbitmq/data/:/var/lib/rabbitmq/
-    #     - ./rabbitmq/log/:/var/log/rabbitmq
+    volumes:
+        - ./rabbitmq/data/:/var/lib/rabbitmq/
+        - ./rabbitmq/log/:/var/log/rabbitmq/
     # networks:
     #     - rabbitmq_go_net
 
