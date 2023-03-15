@@ -1,4 +1,4 @@
-import { ClientProxy, ClientKafka } from '@nestjs/microservices';
+import { ClientKafka } from '@nestjs/microservices';
 import { Inject } from '@nestjs/common';
 import { LoadUsersBroker } from '../../domain/use-cases/import/ports/load-users-broker';
 import { ImportFilter } from '../../domain/models/import-filter';
