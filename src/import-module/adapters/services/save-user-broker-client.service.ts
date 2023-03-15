@@ -1,4 +1,4 @@
-import { ClientProxy, ClientKafka } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { Inject } from '@nestjs/common';
 import { MessageBrokerError } from '../../domain/models/message-broker-error';
 import { UserModel } from '../../domain/models/user-model';
@@ -6,7 +6,7 @@ import { SaveUserBroker } from '../../domain/use-cases/load-users/ports/save-use
 
 export class SaveUserBrokerClient implements SaveUserBroker {
   constructor(
-    @Inject('import-users-service') private readonly clientProxy: ClientKafka,
+    @Inject('import-users-service') private readonly clientProxy: ClientProxy,
   ) {}
 
   send(data: UserModel): void {

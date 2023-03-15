@@ -19,10 +19,12 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.KAFKA,
+    transport: Transport.RMQ,
     options: {
-      client: {
-        brokers: ['localhost:9092'],
+      urls: [process.env.MESSAGE_BROKER_URL],
+      queue: process.env.QUEUE_NAME,
+      queueOptions: {
+        durable: false,
       },
     },
   });

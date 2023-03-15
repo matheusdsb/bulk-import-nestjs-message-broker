@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { HttpModule } from '@nestjs/axios';
-import { ClientsModule, Transport, ClientKafka } from '@nestjs/microservices';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import * as dotenv from 'dotenv';
 import { ImportService } from './domain/use-cases/import/import.service';
 import { ImportController } from './presentation/controllers/import.controller';
@@ -26,14 +26,12 @@ dotenv.config();
     ClientsModule.register([
       {
         name: process.env.MESSAGE_BROKER_NAME,
-        transport: Transport.KAFKA,
+        transport: Transport.RMQ,
         options: {
-          client: {
-            clientId: process.env.MESSAGE_CLIENT_ID,
-            brokers: [process.env.MESSAGE_BROKER_URL],
-          },
-          consumer: {
-            groupId: process.env.MESSAGE_CONSUMER,
+          urls: [process.env.MESSAGE_BROKER_URL],
+          queue: process.env.QUEUE_NAME,
+          queueOptions: {
+            durable: false,
           },
         },
       },
