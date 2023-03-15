@@ -4,7 +4,6 @@ import { SaveUserService } from '../../domain/use-cases/save-users/save-user.ser
 import { UserModel } from '../../domain/models/user-model';
 import * as dotenv from 'dotenv';
 
-dotenv.config();
 @Controller('save-users')
 export class SaveUsersController implements OnModuleInit {
   constructor(
