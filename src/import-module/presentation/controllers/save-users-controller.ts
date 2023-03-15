@@ -2,9 +2,7 @@ import { Controller, OnModuleInit, Inject } from '@nestjs/common';
 import { ClientKafka, MessagePattern, Payload } from '@nestjs/microservices';
 import { SaveUserService } from '../../domain/use-cases/save-users/save-user.service';
 import { UserModel } from '../../domain/models/user-model';
-import * as dotenv from 'dotenv';
 
-dotenv.config();
 @Controller('save-users')
 export class SaveUsersController implements OnModuleInit {
   constructor(

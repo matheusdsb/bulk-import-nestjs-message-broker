@@ -2,9 +2,6 @@ import { Controller, Inject, OnModuleInit } from '@nestjs/common';
 import { ClientKafka, MessagePattern, Payload } from '@nestjs/microservices';
 import { LoadUsersService } from '../../domain/use-cases/load-users/load-users.service';
 import { ImportFilter } from '../../domain/models/import-filter';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
 @Controller('load-users')
 export class LoadUsersController implements OnModuleInit {
   constructor(
