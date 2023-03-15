@@ -37,9 +37,6 @@ lerna-debug.log*
 #DATABASE Files
 /mongo-data
 
-/rabbitmq/data/*
-/rabbitmq/log/*
-!/rabbitmq/data/.directory
-!/rabbitmq/log/.directory
+/rabbitmq
 
 .directory
