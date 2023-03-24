@@ -1,0 +1,20 @@
+type Query {
+  users(first: Int, after: String): UserRelay
+}
+
+type UserEdge implements Edge {
+  cursor: String!
+  node: User!
+}
+
+type UserRelay {
+    edges: [UserEdge]!
+    pageInfo: PageInfo!
+}
+
+type User implements NodeRelay {
+    id: ID!
+    login: String
+    avatar: String
+    isAdmin: Boolean
+}

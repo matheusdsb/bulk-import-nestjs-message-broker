@@ -1,0 +1,22 @@
+interface Edge {
+  cursor: String!
+  node: NodeRelay!
+}
+
+interface NodeRelay {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+}
+
+interface Relay {
+    edges: [Edge]!
+    pageInfo: PageInfo!
+}
+
+input RelayArguments {
+  after: String
+  first: Int
+}
