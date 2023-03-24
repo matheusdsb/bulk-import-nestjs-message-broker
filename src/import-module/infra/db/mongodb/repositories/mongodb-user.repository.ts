@@ -6,7 +6,6 @@ import { UserDocument } from '../schemas/user-schema';
 import { UserMapper } from '../mappers/user-mapper';
 import { User } from '../../../../domain/entities/user';
 import { UserMongoModelMapper } from '../mappers/user-mongo-model-mapper';
-
 @Injectable()
 export class MongoDBUserRepository implements UserRepository {
   constructor(
