@@ -1,4 +1,4 @@
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientKafka } from '@nestjs/microservices';
 import { Inject } from '@nestjs/common';
 import { MessageBrokerError } from '../../domain/models/message-broker-error';
 import { UserModel } from '../../domain/models/user-model';
