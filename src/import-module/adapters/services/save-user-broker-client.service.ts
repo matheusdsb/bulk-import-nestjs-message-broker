@@ -6,7 +6,7 @@ import { SaveUserBroker } from '../../domain/use-cases/load-users/ports/save-use
 
 export class SaveUserBrokerClient implements SaveUserBroker {
   constructor(
-    @Inject('import-users-service') private readonly clientProxy: ClientProxy,
+    @Inject('import-users-service') private readonly clientProxy: ClientKafka,
   ) {}
 
   send(data: UserModel): void {

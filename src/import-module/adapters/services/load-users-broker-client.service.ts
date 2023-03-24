@@ -5,7 +5,7 @@ import { ImportFilter } from '../../domain/models/import-filter';
 
 export class LoadUsersBrokerClient implements LoadUsersBroker {
   constructor(
-    @Inject('import-users-service') private readonly clientProxy: ClientProxy,
+    @Inject('import-users-service') private readonly clientProxy: ClientKafka,
   ) {}
 
   send(data: ImportFilter): void {
