@@ -16,6 +16,9 @@ import { LoadUsersService } from './domain/use-cases/load-users/load-users.servi
 import { SaveUserService } from './domain/use-cases/save-users/save-user.service';
 import { GitHubUserService } from './adapters/services/github-users.service';
 import { User } from './domain/entities/user';
+import { UsersResolver } from './infra/graphql/user.resolver';
+import { ListUsersService } from './domain/use-cases/list-users/list-users.service';
+import { MongoDBListUsersRepository } from './infra/graphql/mongodb-list-users.repository';
 
 dotenv.config();
 
@@ -65,6 +68,12 @@ dotenv.config();
     {
       provide: 'MESSAGE_BROKER_CLIENT',
       useValue: process.env.MESSAGE_BROKER_NAME,
+    },
+    UsersResolver,
+    ListUsersService,
+    {
+      provide: 'ListUsersRepository',
+      useClass: MongoDBListUsersRepository,
     },
   ],
 })
