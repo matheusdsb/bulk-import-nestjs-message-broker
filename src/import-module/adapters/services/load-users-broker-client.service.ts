@@ -8,7 +8,7 @@ export class LoadUsersBrokerClient implements LoadUsersBroker {
     @Inject('import-users-service') private readonly clientProxy: ClientKafka,
   ) {}
 
-  send(data: ImportFilter): void {
+  async send(data: ImportFilter): Promise<void> {
     this.clientProxy.send('load-users', data).subscribe();
   }
 }

@@ -27,7 +27,7 @@ export class ImportController {
     type: ErrorResponseDto,
   })
   async import(@Body() model: ImportModel): Promise<void> {
-    this.importService.startImporting({
+    await this.importService.startImporting({
       idGreaterThan: model.idGreaterThan,
       maxItems: model.maxItems,
     });

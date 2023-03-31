@@ -12,9 +12,9 @@ export class ImportService {
     private readonly loadUsersBrokerClient: LoadUsersBroker,
   ) {}
 
-  startImporting(importFilter: ImportFilter): void {
+  async startImporting(importFilter: ImportFilter): Promise<void> {
     try {
-      this.loadUsersBrokerClient.send(importFilter);
+      await this.loadUsersBrokerClient.send(importFilter);
     } catch (error) {
       const customErrorMessage = 'error sending message to start loading users';
       this.logger.error(`${customErrorMessage}: ${error.message}`, error.stack);

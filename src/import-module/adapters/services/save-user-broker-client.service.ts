@@ -9,7 +9,7 @@ export class SaveUserBrokerClient implements SaveUserBroker {
     @Inject('import-users-service') private readonly clientProxy: ClientKafka,
   ) {}
 
-  send(data: UserModel): void {
+  async send(data: UserModel): Promise<void> {
     try {
       this.clientProxy.send<any, UserModel>('save-user', data).subscribe();
     } catch (error) {

@@ -24,7 +24,7 @@ export class LoadUsersService {
       let remainingCalls = LoadUsersService.MAX_CALLS_USERS_API;
 
       while (users.length > 0 && remainingItems > 0 && remainingCalls > 0) {
-        this.sendBatch(users);
+        await this.sendBatch(users);
         const lastFetchedId = this.getLastIdFrom(users);
 
         if (lastFetchedId < 0) {
@@ -41,9 +41,9 @@ export class LoadUsersService {
     }
   }
 
-  private sendBatch(users: UserModel[]): void {
+  private async sendBatch(users: UserModel[]): Promise<void> {
     for (const user of users) {
-      this.saveUserBrokerClient.send(user);
+      await this.saveUserBrokerClient.send(user);
     }
   }
 
