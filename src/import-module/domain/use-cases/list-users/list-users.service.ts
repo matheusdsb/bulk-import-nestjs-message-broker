@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { RelayArguments, UserRelay } from '../../models/graphql';
-import { UserRelayMapper } from '../../helpers/user-relay-mapper';
 import { ListUsersRepository } from './ports/list-users.repository';
+import { ListUsersFilter } from '../../models/list-users-filter';
+import { Page } from './page';
+import { User } from '../../entities/user';
 
 @Injectable()
 export class ListUsersService {
@@ -12,11 +13,12 @@ export class ListUsersService {
     private readonly listUsersRepository: ListUsersRepository,
   ) {}
 
-  async list(args: RelayArguments): Promise<UserRelay> {
-    const page = await this.listUsersRepository.findManyAndCount(
-      args.first && args.first < this.MAX_ITEMS ? args.first : this.MAX_ITEMS,
-      parseInt(args.after),
+  async list(filter: ListUsersFilter): Promise<Page<User>> {
+    return this.listUsersRepository.findManyAndCount(
+      filter.maxItems && filter.maxItems < this.MAX_ITEMS
+        ? filter.maxItems
+        : this.MAX_ITEMS,
+      filter.idGreaterThan,
     );
-    return UserRelayMapper.fromPage(page);
   }
 }

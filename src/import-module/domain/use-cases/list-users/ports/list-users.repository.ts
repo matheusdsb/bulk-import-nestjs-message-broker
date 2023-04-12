@@ -1,4 +1,4 @@
-import { User } from '../../../models/graphql';
+import { User } from '../../../entities/user';
 import { Page } from '../page';
 
 export interface ListUsersRepository {
